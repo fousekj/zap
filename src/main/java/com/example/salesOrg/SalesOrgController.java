@@ -1,12 +1,14 @@
 package com.example.salesOrg;
 
+import com.example.DB.DB;
 import com.example.address.Address;
+import com.example.main.App;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -34,18 +36,21 @@ public class SalesOrgController implements Initializable {
     private TextField tfEmail;
     @FXML
     private TextField tfPhone;
-
     @FXML
     private AnchorPane anchorPaneDocType;
-    private SalesOrgList salesOrgList = new SalesOrgList();
-
     @FXML
-    private ListView<SalesOrg> salesOrgListView;
+    private ListView<SalesOrg> salesOrgListView = new ListView<>();
+    private ObservableList<SalesOrg> salesOrgList;
+
+    private DB database;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        database = App.getDatabase();
+        salesOrgList = database.getSalesOrgs();
 
-        salesOrgListView.setItems(salesOrgList.getSalesOrgs());
-        if (salesOrgList.getSalesOrgs().isEmpty()){
+        salesOrgListView.setItems(salesOrgList);
+        if (salesOrgList.isEmpty()){
             salesOrgListView.getSelectionModel().select(0);
         }
     }
@@ -57,44 +62,45 @@ public class SalesOrgController implements Initializable {
             BorderPane parent = (BorderPane) anchorPaneDocType.getParent();
             parent.setCenter(newAnchorPane);
         } catch (Exception e){
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Kritická chyba - nepodařilo se nalézt zdroj zobrazení");
-            alert.show();
+            showAlert(Alert.AlertType.ERROR, "Kritická chyba - nepodařilo se nalézt zdroj zobrazení");
         }
     }
 
     public void handleCreateNewDocTypeAction(ActionEvent event) {
         if (checkIfSalesOrgExists(tfKey.getText())){
-            Alert alert = new Alert(Alert.AlertType.WARNING, "Prodejní organizace s daným klíčem již existuje");
-            alert.show();
+            showAlert(Alert.AlertType.WARNING, "Prodejní organizace s daným klíčem již existuje");
         } else {
             try {
                 Address address = new Address(tfStreet.getText(), tfHouseNum.getText(), tfCity.getText(), tfCountry.getText(), tfEmail.getText(), tfPhone.getText());
                 SalesOrg newSalesOrg = new SalesOrg(tfName.getText(), tfName.getText(), address);
-                salesOrgList.addSalesOrg(newSalesOrg);
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Nová prodejní organizace úspěšně vytvořena");
-                alert.show();
+                salesOrgList.add(newSalesOrg);
+                database.setSalesOrgs(salesOrgList);
+                showAlert(Alert.AlertType.CONFIRMATION, "Nová prodejní organizace úspěšně vytvořena");
                 FXMLLoader fxmlLoader = new FXMLLoader(SalesOrgController.class.getResource("displayAllSalesOrgs.fxml"));
                 AnchorPane anchorPane = (AnchorPane) fxmlLoader.load();
                 BorderPane parent = (BorderPane) anchorPaneDocType.getParent();
                 parent.setCenter(anchorPane);
 
             } catch (Exception e){
-                Alert alert = new Alert(Alert.AlertType.ERROR, "Kritická chyba - nepodařilo se nalézt zdroj zobrazení");
-                alert.show();
+                showAlert(Alert.AlertType.ERROR, "Kritická chyba - nepodařilo se vytvořit novou prodejní organizaci");
             }
         }
 
     }
 
-    private boolean checkIfSalesOrgExists(String key){
-        for (SalesOrg s : salesOrgList.getSalesOrgs()) {
+    private boolean checkIfSalesOrgExists (String key) {
+        for (SalesOrg s : salesOrgList) {
             if (Objects.equals(s.getKey(), key)) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "Prodejní organizace s daným klíčem již existuje");
-                alert.show();
+                showAlert(Alert.AlertType.ERROR, "Prodejní organizace s daným klíčem již existuje");
                 return true;
             }
         }
         return false;
+    }
+
+    private void showAlert(Alert.AlertType alertType, String text) {
+        Alert alert = new Alert(alertType, text);
+        alert.show();
     }
 
 

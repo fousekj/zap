@@ -7,4 +7,6 @@ module com.example.main {
     exports com.example.main;
     exports com.example.salesOrg;
     opens com.example.salesOrg to javafx.fxml;
+    exports com.example.DB;
+    opens com.example.DB to javafx.fxml;
 }
