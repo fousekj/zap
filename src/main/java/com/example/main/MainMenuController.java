@@ -1,5 +1,7 @@
 package com.example.main;
 
+import com.example.customer.CustomerController;
+import com.example.interfaces.Alertable;
 import com.example.settings.docType.DocTypeController;
 import com.example.settings.salesOrg.SalesOrgController;
 import javafx.event.ActionEvent;
@@ -15,7 +17,7 @@ import javafx.scene.layout.BorderPane;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MainMenuController implements Initializable {
+public class MainMenuController implements Initializable, Alertable {
     public AnchorPane anchorPaneCreateDocType;
     @FXML
     private MenuBar menu;
@@ -42,8 +44,7 @@ public class MainMenuController implements Initializable {
             AnchorPane anchorPane = (AnchorPane) fxmlLoader.load();
             borderPaneScreen.setCenter(anchorPane);
         } catch (Exception e){
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Kritická chyba - nepodařilo se nalézt zdroj zobrazení");
-            alert.show();
+            showAlert(Alert.AlertType.ERROR, "Kritická chyba - nepodařilo se nalézt zdroj zobrazení");
         }
 
     }
@@ -54,12 +55,18 @@ public class MainMenuController implements Initializable {
             AnchorPane anchorPane = (AnchorPane) fxmlLoader.load();
             borderPaneScreen.setCenter(anchorPane);
         } catch (Exception e){
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Kritická chyba - nepodařilo se nalézt zdroj zobrazení");
-            alert.show();
+            showAlert(Alert.AlertType.ERROR, "Kritická chyba - nepodařilo se nalézt zdroj zobrazení");
         }
     }
 
-    public void createCustomer(ActionEvent actionEvent) {
+    public void handleCustomerAction(ActionEvent actionEvent) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(CustomerController.class.getResource("displayAllCustomers.fxml"));
+            AnchorPane anchorPane = (AnchorPane) fxmlLoader.load();
+            borderPaneScreen.setCenter(anchorPane);
+        } catch (Exception e){
+            showAlert(Alert.AlertType.ERROR, "Kritická chyba - nepodařilo se nalézt zdroj zobrazení");
+        }
     }
 
     public void createMaterial(ActionEvent actionEvent) {

@@ -1,6 +1,7 @@
 package com.example.settings.docType;
 
 import com.example.DB.DB;
+import com.example.interfaces.Alertable;
 import com.example.interfaces.Validatable;
 import com.example.main.App;
 import javafx.collections.FXCollections;
@@ -21,7 +22,7 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class DocTypeController implements Initializable, Validatable {
+public class DocTypeController implements Initializable, Validatable, Alertable {
 
     @FXML
     private TextField tfName;
@@ -29,13 +30,11 @@ public class DocTypeController implements Initializable, Validatable {
     private TextField tfKey;
     @FXML
     private ComboBox<DocCategory> cbCategory = new ComboBox<>();
-
     @FXML
     private AnchorPane anchorPaneDocType;
     @FXML
     private ListView<DocType> docTypeListView = new ListView<>();
     private ObservableList<DocType> docTypeList;
-
     private DB database;
 
     @Override
@@ -88,17 +87,12 @@ public class DocTypeController implements Initializable, Validatable {
     private boolean checkIfDocTypeExists (String key) {
         for (DocType d : docTypeList) {
             if (Objects.equals(d.getKey(), key)) {
-                //showAlert(Alert.AlertType.ERROR, "Prodejní organizace s daným klíčem již existuje");
                 return true;
             }
         }
         return false;
     }
 
-    private void showAlert(Alert.AlertType alertType, String text) {
-        Alert alert = new Alert(alertType, text);
-        alert.show();
-    }
 
     @Override
     public void validateBeforeCreation() {

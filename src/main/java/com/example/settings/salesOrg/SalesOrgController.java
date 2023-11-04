@@ -2,6 +2,7 @@ package com.example.settings.salesOrg;
 
 import com.example.DB.DB;
 import com.example.address.Address;
+import com.example.interfaces.Alertable;
 import com.example.interfaces.Validatable;
 import com.example.main.App;
 import javafx.collections.ObservableList;
@@ -19,7 +20,7 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class SalesOrgController implements Initializable, Validatable {
+public class SalesOrgController implements Initializable, Validatable, Alertable {
 
     @FXML
     private TextField tfName;
@@ -92,18 +93,11 @@ public class SalesOrgController implements Initializable, Validatable {
     private boolean checkIfSalesOrgExists (String key) {
         for (SalesOrg s : salesOrgList) {
             if (Objects.equals(s.getKey(), key)) {
-                //showAlert(Alert.AlertType.ERROR, "Prodejní organizace s daným klíčem již existuje");
                 return true;
             }
         }
         return false;
     }
-
-    private void showAlert(Alert.AlertType alertType, String text) {
-        Alert alert = new Alert(alertType, text);
-        alert.show();
-    }
-
 
     @Override
     public void validateBeforeCreation() {

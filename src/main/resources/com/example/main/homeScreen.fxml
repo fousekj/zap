@@ -49,7 +49,7 @@
                 <MenuItem fx:id="docTypeMenu" mnemonicParsing="false" onAction="#handleDocTypeAction" text="Typy dokladů" />
            </Menu>
            <Menu mnemonicParsing="false" text="Kmenová data">
-                <MenuItem mnemonicParsing="false" onAction="#createCustomer" text="Zákazníci" />
+                <MenuItem mnemonicParsing="false" onAction="#handleCustomerAction" text="Zákazníci" />
                <SeparatorMenuItem mnemonicParsing="false" />
                 <MenuItem mnemonicParsing="false" onAction="#createMaterial" text="Materiály" />
            </Menu>

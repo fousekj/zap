@@ -11,4 +11,6 @@ module com.example.main {
     opens com.example.DB to javafx.fxml;
     exports com.example.settings.docType;
     opens com.example.settings.docType to javafx.fxml;
+    exports com.example.customer;
+    opens com.example.customer to javafx.fxml;
 }
