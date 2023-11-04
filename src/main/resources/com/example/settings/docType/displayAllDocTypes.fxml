@@ -36,10 +36,10 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="anchorPaneDocType" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.salesOrg.SalesOrgController">
+<AnchorPane fx:id="anchorPaneDocType" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.settings.docType.DocTypeController">
    <children>
       <Button fx:id="createNewDoctype" layoutX="398.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleCreateDocTypeAction" text="Vytvořit nový druh dokladu" />
-      <ListView fx:id="salesOrgListView" layoutY="54.0" prefHeight="347.0" prefWidth="559.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="54.0" />
+      <ListView fx:id="docTypeListView" layoutY="54.0" prefHeight="347.0" prefWidth="559.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="54.0" />
       <Label layoutX="14.0" layoutY="12.0" text="Zobrazení druhů dokladů">
          <font>
             <Font size="20.0" />

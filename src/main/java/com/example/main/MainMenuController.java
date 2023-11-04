@@ -1,12 +1,12 @@
 package com.example.main;
 
-import com.example.salesOrg.SalesOrgController;
+import com.example.settings.docType.DocTypeController;
+import com.example.settings.salesOrg.SalesOrgController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
@@ -49,7 +49,14 @@ public class MainMenuController implements Initializable {
     }
 
     public void handleDocTypeAction(ActionEvent actionEvent) {
-
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(DocTypeController.class.getResource("displayAllDocTypes.fxml"));
+            AnchorPane anchorPane = (AnchorPane) fxmlLoader.load();
+            borderPaneScreen.setCenter(anchorPane);
+        } catch (Exception e){
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Kritická chyba - nepodařilo se nalézt zdroj zobrazení");
+            alert.show();
+        }
     }
 
     public void createCustomer(ActionEvent actionEvent) {

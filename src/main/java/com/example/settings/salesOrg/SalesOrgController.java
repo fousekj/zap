@@ -1,7 +1,8 @@
-package com.example.salesOrg;
+package com.example.settings.salesOrg;
 
 import com.example.DB.DB;
 import com.example.address.Address;
+import com.example.interfaces.Validatable;
 import com.example.main.App;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,7 +19,7 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class SalesOrgController implements Initializable {
+public class SalesOrgController implements Initializable, Validatable {
 
     @FXML
     private TextField tfName;
@@ -37,7 +38,7 @@ public class SalesOrgController implements Initializable {
     @FXML
     private TextField tfPhone;
     @FXML
-    private AnchorPane anchorPaneDocType;
+    private AnchorPane anchorPane;
     @FXML
     private ListView<SalesOrg> salesOrgListView = new ListView<>();
     private ObservableList<SalesOrg> salesOrgList;
@@ -55,18 +56,18 @@ public class SalesOrgController implements Initializable {
         }
     }
 
-    public void handleCreateDocTypeAction(ActionEvent event) {
+    public void handleCreateSalesOrgAction(ActionEvent event) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(SalesOrgController.class.getResource("createSalesOrg.fxml"));
             AnchorPane newAnchorPane = (AnchorPane) fxmlLoader.load();
-            BorderPane parent = (BorderPane) anchorPaneDocType.getParent();
+            BorderPane parent = (BorderPane) anchorPane.getParent();
             parent.setCenter(newAnchorPane);
         } catch (Exception e){
             showAlert(Alert.AlertType.ERROR, "Kritická chyba - nepodařilo se nalézt zdroj zobrazení");
         }
     }
 
-    public void handleCreateNewDocTypeAction(ActionEvent event) {
+    public void handleCreateNewSalesOrgAction(ActionEvent event) {
         if (checkIfSalesOrgExists(tfKey.getText())){
             showAlert(Alert.AlertType.WARNING, "Prodejní organizace s daným klíčem již existuje");
         } else {
@@ -77,9 +78,9 @@ public class SalesOrgController implements Initializable {
                 database.setSalesOrgs(salesOrgList);
                 showAlert(Alert.AlertType.CONFIRMATION, "Nová prodejní organizace úspěšně vytvořena");
                 FXMLLoader fxmlLoader = new FXMLLoader(SalesOrgController.class.getResource("displayAllSalesOrgs.fxml"));
-                AnchorPane anchorPane = (AnchorPane) fxmlLoader.load();
-                BorderPane parent = (BorderPane) anchorPaneDocType.getParent();
-                parent.setCenter(anchorPane);
+                AnchorPane newAnchorPane = (AnchorPane) fxmlLoader.load();
+                BorderPane parent = (BorderPane) anchorPane.getParent();
+                parent.setCenter(newAnchorPane);
 
             } catch (Exception e){
                 showAlert(Alert.AlertType.ERROR, "Kritická chyba - nepodařilo se vytvořit novou prodejní organizaci");
@@ -91,7 +92,7 @@ public class SalesOrgController implements Initializable {
     private boolean checkIfSalesOrgExists (String key) {
         for (SalesOrg s : salesOrgList) {
             if (Objects.equals(s.getKey(), key)) {
-                showAlert(Alert.AlertType.ERROR, "Prodejní organizace s daným klíčem již existuje");
+                //showAlert(Alert.AlertType.ERROR, "Prodejní organizace s daným klíčem již existuje");
                 return true;
             }
         }
@@ -104,4 +105,8 @@ public class SalesOrgController implements Initializable {
     }
 
 
+    @Override
+    public void validateBeforeCreation() {
+
+    }
 }

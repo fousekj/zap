@@ -1,4 +1,4 @@
-package com.example.salesOrg;
+package com.example.settings.salesOrg;
 
 import com.example.address.Address;
 
