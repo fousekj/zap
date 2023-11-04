@@ -1,50 +1,60 @@
 package com.example.main;
 
+import com.example.salesOrg.SalesOrgController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 
-public class MainMenuController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class MainMenuController implements Initializable {
+    public AnchorPane anchorPaneCreateDocType;
     @FXML
-    private Label welcomeText;
+    private MenuBar menu;
+    @FXML
+    private MenuItem salesOrgMenu;
+    @FXML
+    private MenuItem docTypeMenu;
 
     @FXML
-    protected void createSalesOrg() {
+    private BorderPane borderPaneScreen;
 
+    private boolean isUserLoggedOn;
+    private boolean isUserAdmin;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        //validace pro zobrazení konfigurace
     }
 
     @FXML
-    protected void changeSalesOrg() {
-        //welcomeText.setText("Welcome to JavaFX Application!");
+    protected void handleSalesOrgAction(ActionEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(SalesOrgController.class.getResource("displayAllSalesOrgs.fxml"));
+            AnchorPane anchorPane = (AnchorPane) fxmlLoader.load();
+            borderPaneScreen.setCenter(anchorPane);
+        } catch (Exception e){
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Kritická chyba - nepodařilo se nalézt zdroj zobrazení");
+            alert.show();
+        }
+
     }
 
-    public void displaySalesOrg() {
-    }
+    public void handleDocTypeAction(ActionEvent actionEvent) {
 
-    public void createDocType(ActionEvent actionEvent) {
-    }
-
-    public void changeDocType(ActionEvent actionEvent) {
-    }
-
-    public void displayDocType(ActionEvent actionEvent) {
     }
 
     public void createCustomer(ActionEvent actionEvent) {
     }
 
-    public void changeCustomer(ActionEvent actionEvent) {
-    }
-
-    public void displayCustomer(ActionEvent actionEvent) {
-    }
-
     public void createMaterial(ActionEvent actionEvent) {
-    }
-
-    public void changeMaterial(ActionEvent actionEvent) {
-    }
-
-    public void displayMaterial(ActionEvent actionEvent) {
     }
 }
