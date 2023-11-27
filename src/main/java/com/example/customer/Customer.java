@@ -3,7 +3,6 @@ package com.example.customer;
 import com.example.address.Address;
 import com.example.settings.PaymentTerm;
 
-import java.math.BigInteger;
 
 public class Customer {
     private String name, searchTerm, ICO, DIC, incoterms;
@@ -20,6 +19,7 @@ public class Customer {
         this.incoterms = incoterms;
         this.address = address;
         this.paymentTerm = paymentTerm;
+
     }
 
     public int getNumber() {

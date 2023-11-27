@@ -7,9 +7,6 @@ public class DocType {
 
     private DocCategory docCategory;
 
-
-
-
     public DocType(String name, String key, DocCategory docCategory) {
         this.name = name;
         this.key = key;

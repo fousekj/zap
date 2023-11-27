@@ -18,7 +18,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MainMenuController implements Initializable, Alertable {
-    public AnchorPane anchorPaneCreateDocType;
+
     @FXML
     private MenuBar menu;
     @FXML
