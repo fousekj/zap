@@ -22,6 +22,11 @@ public class Customer {
 
     }
 
+    public Customer (){
+        address = null;
+        paymentTerm = null;
+    }
+
     public int getNumber() {
         return number;
     }

@@ -14,7 +14,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        setup();
+
 
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("homeScreen.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 900, 600);
@@ -22,7 +22,7 @@ public class App extends Application {
         primaryStage.setTitle("ZAP - FOU0027");
         primaryStage.setScene(scene);
         primaryStage.show();
-
+        setup();
     }
 
     private void setup(){

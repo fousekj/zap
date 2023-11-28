@@ -37,12 +37,12 @@ public class CustomerController implements Initializable, Alertable {
     @FXML
     private ComboBox<PaymentTerm> cbPaymentTerms = new ComboBox<>();
     private ObservableList<Customer> customerList;
-    private DB database;
+    //private DB database;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        database = App.getDatabase();
-        customerList = database.getCustomers();
+        //database = App.getDatabase();
+        customerList = CustomerDAO.getAllCustomers();
         customerListView.setItems(customerList);
         if (customerList.isEmpty()){
             customerListView.getSelectionModel().select(0);
@@ -77,7 +77,7 @@ public class CustomerController implements Initializable, Alertable {
     }
 
     public void handleCreateNewCustomerAction() {
-        try {
+        /*try {
             Address address = new Address(tfStreet.getText(), tfHouseNum.getText(), tfCity.getText(), tfCountry.getText(), tfEmail.getText(), tfPhone.getText());
             Customer newCustomer = new Customer(findNewCustomerNumber(), tfName.getText(), tfSearchTerm.getText(), tfICO.getText(), tfDIC.getText(), tfIncoterms.getText(), address, cbPaymentTerms.getValue());
             customerList.add(newCustomer);
@@ -90,7 +90,7 @@ public class CustomerController implements Initializable, Alertable {
 
         } catch (Exception e){
             showAlert(Alert.AlertType.ERROR, "Kritická chyba - nepodařilo se vytvořit nového zákazníka");
-        }
+        }*/
     }
 
     private int findNewCustomerNumber() {
