@@ -1,0 +1,1 @@
+Pro správné fungování tohoto systému je nutné být ve školní síti, popřípadě na VPN. V tomto projektu používám databázi, kterou jsem využíval i v projektu do předmětu DS-I.
