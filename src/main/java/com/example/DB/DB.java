@@ -11,7 +11,7 @@ public class DB {
     private static final String dbURL = "jdbc:sqlserver://dbsys.cs.vsb.cz\\\\SQLDB:52124;database=FOU0027;encrypt=true;trustServerCertificate=true;";
     private static Connection connection;
     private static final String user = "FOU0027";
-    private static final String password = "GmkPnoPiXEhZBNUn";
+    private static final String password = "";
 
 
 
