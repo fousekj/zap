@@ -5,7 +5,6 @@ import com.example.address.Address;
 import com.example.customer.CustomerController;
 import com.example.customer.CustomerDAO;
 import com.example.interfaces.Alertable;
-import com.example.interfaces.Validatable;
 import com.example.main.App;
 //import com.example.settings.salesOrg.SalesOrg;
 import javafx.collections.ObservableList;
@@ -23,7 +22,7 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class MaterialController implements Initializable, Validatable, Alertable {
+public class MaterialController implements Initializable, Alertable {
 
     @FXML
     private TextField tfDescription, tfPrice, tfVatRate, tfBruttoWeight, tfNettoWeight, tfBaseUOM;
@@ -76,8 +75,4 @@ public class MaterialController implements Initializable, Validatable, Alertable
 
     }
 
-    @Override
-    public void validateBeforeCreation() {
-
-    }
 }

@@ -93,12 +93,6 @@ public class Customer {
 
     @Override
     public String toString() {
-        return "Customer{" +
-                "name='" + name + '\'' +
-                ", role='" + role + '\'' +
-                ", incoterms='" + incoterms + '\'' +
-                ", id=" + id +
-                ", paymentTerm=" + paymentTerm +
-                '}';
+        return "Zákazník " + name + " s rolí " + role.toString() + " a slevou " + discount + " %. Dodací adresa: " + deliveryAddress.toString() + ". Fakturační adresa: " + invoiceAddress.toString() + ". Incoterms: " + incoterms + ". Platební podmínky: " + paymentTerm.toString() + ".";
     }
 }

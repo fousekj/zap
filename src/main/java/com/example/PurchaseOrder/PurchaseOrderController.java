@@ -1,7 +1,9 @@
 package com.example.PurchaseOrder;
 
+import com.example.SalesOrder.SalesOrder;
 import com.example.customer.Customer;
 import com.example.customer.CustomerDAO;
+import com.example.customer.Role;
 import com.example.interfaces.Alertable;
 import com.example.material.Material;
 import com.example.material.MaterialDAO;
@@ -23,7 +25,7 @@ import java.util.ResourceBundle;
 public class PurchaseOrderController implements Initializable, Alertable {
 
     @FXML
-    private TextField tfQuantity, tfTotalPrice, tfTotalVat, tfIncoterms, tfPaymentTerms;
+    private TextField tfQuantity, tfTotalPrice, tfTotalVat, tfIncoterms, tfPaymentTerms, tfId;
 
     @FXML
     ComboBox<Customer> cbCustomer = new ComboBox<>();
@@ -33,9 +35,9 @@ public class PurchaseOrderController implements Initializable, Alertable {
     @FXML
     private AnchorPane anchorPane;
     @FXML
-    private ListView<PurchaseOrder> purchaseOrderListView;
+    private ListView<PurchaseOrder> purchaseOrderListView = new ListView<>();
     @FXML
-    private ListView<PurchaseOrderItem> lvItems;
+    private ListView<PurchaseOrderItem> lvItems = new ListView<>();
     private ObservableList<PurchaseOrder> purchaseOrderList = FXCollections.observableArrayList();
     private ObservableList<PurchaseOrderItem> purchaseOrderItems = FXCollections.observableArrayList();
 
@@ -47,12 +49,17 @@ public class PurchaseOrderController implements Initializable, Alertable {
         if (purchaseOrderList.isEmpty()){
             purchaseOrderListView.getSelectionModel().select(0);
         }
-        cbCustomer.getItems().addAll(CustomerDAO.getAllCustomers());
-        cbMaterial.setItems(MaterialDAO.getAllMaterials());
+        ObservableList<Customer> customers = CustomerDAO.getAllCustomers();
+        customers.removeIf(c -> c.getRole() != Role.VE);
+        cbCustomer.getItems().addAll(customers);
+        ObservableList<Material> materials = MaterialDAO.getAllMaterials();
+        cbMaterial.setItems(materials);
+
 
     }
 
     public void handleCreatePurchaseOrder(ActionEvent event) {
+
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(PurchaseOrderController.class.getResource("createPurchaseOrder.fxml"));
             AnchorPane newAnchorPane = (AnchorPane) fxmlLoader.load();
@@ -64,6 +71,20 @@ public class PurchaseOrderController implements Initializable, Alertable {
     }
 
     public void handleAddMaterial(){
+        if (cbMaterial.getValue() == null){
+            showAlert(Alert.AlertType.ERROR, "Není vybrán materiál");
+            return;
+        }
+
+        if (tfQuantity.getText().isEmpty()){
+            showAlert(Alert.AlertType.ERROR, "Není vyplněno množství");
+            return;
+        }
+
+        if (Float.parseFloat(tfQuantity.getText()) < 0){
+            showAlert(Alert.AlertType.ERROR, "Množství musí být větší než 0");
+            return;
+        }
 
         Material mat = (Material) cbMaterial.getValue();
         PurchaseOrderItem item = new PurchaseOrderItem();
@@ -105,7 +126,14 @@ public class PurchaseOrderController implements Initializable, Alertable {
 
 
     public void handleCreateNewPurchaseOrder(ActionEvent event) {
-
+        if (cbCustomer.getValue() == null){
+            showAlert(Alert.AlertType.ERROR, "Musíte vybrat dodavatele");
+            return;
+        }
+        if (purchaseOrderItems.isEmpty()){
+            showAlert(Alert.AlertType.ERROR, "Musíte přidat materiál");
+            return;
+        }
         try {
             PurchaseOrder po = new PurchaseOrder(tfIncoterms.getText(), PaymentTerm.fromLabel(tfPaymentTerms.getText()), Float.parseFloat(tfTotalPrice.getText()), Float.parseFloat(tfTotalVat.getText()));
             po.setItems(purchaseOrderItems);
@@ -118,6 +146,42 @@ public class PurchaseOrderController implements Initializable, Alertable {
             parent.setCenter(newAnchorPane);
         } catch (Exception e){
             showAlert(Alert.AlertType.ERROR, "Nepodařilo se vytvořit novou nákupní objednávku");
+        }
+    }
+
+    public void handleDisplayDocument() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(PurchaseOrder.class.getResource("displayPurchaseOrder.fxml"));
+            AnchorPane newAnchorPane = (AnchorPane) fxmlLoader.load();
+            BorderPane parent = (BorderPane) anchorPane.getParent();
+            parent.setCenter(newAnchorPane);
+        } catch (Exception e) {
+            showAlert(Alert.AlertType.ERROR, "Nepodařilo se zobrazit účetní doklad");
+        }
+    }
+    public void handleDisplayDocumentById() {
+        PurchaseOrder purchaseOrder = null;
+        if (tfId.getText().isEmpty()) {
+            showAlert(Alert.AlertType.ERROR, "Musíte zadat číslo objednávky dokladu");
+            return;
+        }
+        for (PurchaseOrder po : this.purchaseOrderList) {
+            if (po.getId() == Integer.parseInt(tfId.getText())) {
+                purchaseOrder = po;
+                break;
+            }
+        }
+
+        if (purchaseOrder == null) {
+            showAlert(Alert.AlertType.ERROR, "Nepodařilo se nalézt zakázku s tímto číslem");
+        } else {
+            tfId.setText(String.valueOf(purchaseOrder.getId()));
+            tfTotalPrice.setText(String.valueOf(purchaseOrder.getPrice()));
+            tfTotalVat.setText(String.valueOf(purchaseOrder.getVat()));
+            cbCustomer.setValue(purchaseOrder.getCustomer());
+            tfIncoterms.setText(purchaseOrder.getIncoterms());
+            tfPaymentTerms.setText(purchaseOrder.getPaymentTerms().toString());
+            lvItems.setItems(purchaseOrder.getItems());
         }
     }
 

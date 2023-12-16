@@ -95,11 +95,6 @@ public class SalesOrder extends DocumentHeader {
 
     @Override
     public String toString() {
-        return "SalesOrder{" +
-                ", id=" + super.getId() +
-                ", incoterms='" + incoterms + '\'' +
-                ", price=" + super.getPrice() +
-                ", vat=" + super.getVat() +
-                '}';
+            return "Zakázka " + getId() + " v hodnotě " + getPrice() + " pro zákazníka " + getCustomer().getName();
     }
 }

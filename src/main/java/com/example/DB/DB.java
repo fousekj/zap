@@ -15,7 +15,7 @@ public class DB {
 
 
 
-    private static void connectDB(){
+    public static void connectDB(){
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             connection = DriverManager.getConnection(dbURL, user, password);
@@ -29,16 +29,13 @@ public class DB {
         Statement stmt = null;
         ResultSet resultSet = null;
         try {
-            connectDB();
-            System.out.println("Select statement: " + queryStmt + "\n");
+            //connectDB();
             stmt = connection.createStatement();
             resultSet = stmt.executeQuery(queryStmt);
 
         } catch (SQLException e) {
             System.out.println("Problem occurred at executeQuery operation : " + e);
         }
-        // zmenit na cashed row set
-        //disconnectDB();
 
         return resultSet;
     }
@@ -47,8 +44,7 @@ public class DB {
         PreparedStatement ps = null;
         ResultSet resultSet = null;
         try {
-            connectDB();
-            System.out.println("Insert statement: " + queryStmt + "\n");
+            //connectDB();
             ps = connection.prepareStatement(queryStmt, Statement.RETURN_GENERATED_KEYS);
             ps.executeUpdate();
             resultSet = ps.getGeneratedKeys();
@@ -56,8 +52,6 @@ public class DB {
         } catch (SQLException e) {
             System.out.println("Problem occurred at insert operation : " + e);
         }
-        // zmenit na cashed row set
-        //disconnectDB();
 
         return resultSet;
     }
@@ -73,16 +67,5 @@ public class DB {
         }
     }
 
-    //private ObservableList<SalesOrg> salesOrgs = FXCollections.observableArrayList();
-    //private ObservableList<DocType> docTypes = FXCollections.observableArrayList();
-    private ObservableList<Customer> customers = FXCollections.observableArrayList();
-
-    public ObservableList<Customer> getCustomers(){
-        return customers;
-    }
-
-    public void setCustomers(ObservableList<Customer> customers) {
-        this.customers = customers;
-    }
 
 }

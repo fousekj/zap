@@ -38,7 +38,9 @@
 
 <AnchorPane fx:id="anchorPane" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.FinancialDocument.FinancialDocumentController">
    <children>
-      <Button layoutX="398.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleCreateFIDocFromPurchaseOrder" text="Vytvořit finanční doklad z nákupní obj." />
+      <Button layoutX="310.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleCreateFIDocFromPurchaseOrder" text="Vytvořit finanční doklad z nákupní obj." />
+      <Button layoutX="547.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleCreateFIDocFromSalesOrder" text="Vytvořit finanční doklad ze zakázky" />
+      <Button layoutX="769.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleDisplayDocument" text="Zobrazit doklad" />
       <ListView fx:id="financialDocumentListView" layoutY="54.0" prefHeight="347.0" prefWidth="559.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="54.0" />
       <Label layoutX="14.0" layoutY="12.0" text="Zobrazení finančních dokladů">
          <font>

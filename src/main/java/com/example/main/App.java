@@ -14,8 +14,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-
-
+        DB.connectDB();
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("homeScreen.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 900, 600);
         primaryStage.setMaximized(true);

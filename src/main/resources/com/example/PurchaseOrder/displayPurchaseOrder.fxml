@@ -32,43 +32,17 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.FinancialDocument.FinancialDocumentController">
+<AnchorPane fx:id="anchorPane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.PurchaseOrder.PurchaseOrderController">
    <children>
-      <Label layoutX="14.0" layoutY="14.0" text="Vytvoření nového finančního dokladu z nákupní objednávky">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Label contentDisplay="RIGHT" layoutX="22.0" layoutY="69.0" text="Objednávka">
-         <font>
-            <Font size="13.0" />
-         </font>
-         <graphic>
-            <ComboBox fx:id="cbPurchaseOrder" onAction="#fillFIDataFromPO" prefHeight="25.0" prefWidth="219.0" />
-         </graphic>
-      </Label>
-      <Label contentDisplay="RIGHT" layoutX="22.0" layoutY="110.0" text="Zákazník">
-         <font>
-            <Font size="13.0" />
-         </font>
-         <graphic>
-            <TextField fx:id="tfCustomer" editable="false" prefHeight="25.0" prefWidth="273.0" />
-         </graphic>
-      </Label>
-      <Button layoutX="552.0" layoutY="16.0" mnemonicParsing="false" onAction="#handleCreateNewFIDocFromPurchaseOrder" text="Vytvořit" />
-      <Label contentDisplay="RIGHT" layoutX="395.0" layoutY="73.0" text="Měna">
-         <font>
-            <Font size="13.0" />
-         </font>
-         <graphic>
-            <TextField fx:id="tfCurrency" />
-         </graphic>
-      </Label>
-      <Label contentDisplay="RIGHT" layoutX="395.0" layoutY="110.0" text="Celková cena">
+      <Label contentDisplay="RIGHT" layoutX="24.0" layoutY="111.0" text="Celková cena">
          <font>
             <Font size="13.0" />
          </font>
@@ -76,7 +50,43 @@
             <TextField fx:id="tfTotalPrice" editable="false" text="0.0" />
          </graphic>
       </Label>
-      <Label contentDisplay="RIGHT" layoutX="395.0" layoutY="144.0" text="Celkové DPH">
+      <Label layoutX="14.0" layoutY="14.0" text="Zobrazení objednávky">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label contentDisplay="RIGHT" layoutX="231.0" layoutY="18.0" text="Číslo objednávky">
+         <font>
+            <Font size="13.0" />
+         </font>
+         <graphic>
+            <TextField fx:id="tfId" />
+         </graphic>
+      </Label>
+      <Label contentDisplay="RIGHT" layoutX="27.0" layoutY="69.0" text="Zákazník">
+         <font>
+            <Font size="13.0" />
+         </font>
+         <graphic>
+            <ComboBox fx:id="cbCustomer" prefWidth="150.0" />
+         </graphic>
+      </Label>
+      <Button layoutX="511.0" layoutY="18.0" mnemonicParsing="false" onAction="#handleDisplayDocumentById" text="Zobrazit" />
+      <Label contentDisplay="RIGHT" layoutX="311.0" layoutY="69.0" text="Incoterms">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+     
+      <Label contentDisplay="RIGHT" layoutX="311.0" layoutY="111.0" text="Platební podm.">
+         <font>
+            <Font size="13.0" />
+         </font>
+         <graphic>
+            <TextField fx:id="tfPaymentTerms" editable="false" />
+         </graphic>
+      </Label>
+      <Label contentDisplay="RIGHT" layoutX="24.0" layoutY="147.0" text="Celkové DPH">
          <font>
             <Font size="13.0" />
          </font>
@@ -84,5 +94,8 @@
             <TextField fx:id="tfTotalVat" editable="false" text="0.0" />
          </graphic>
       </Label>
+      <ListView fx:id="lvItems" layoutX="25.0" layoutY="224.0" prefHeight="200.0" prefWidth="600.0" />
+      <TextField fx:id="tfIncoterms" editable="false" layoutX="402.0" layoutY="76.0" />
+
    </children>
  </AnchorPane>

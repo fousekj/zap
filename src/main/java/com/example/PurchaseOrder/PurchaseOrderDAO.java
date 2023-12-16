@@ -131,7 +131,7 @@ public class PurchaseOrderDAO {
         try {
             ResultSet resultSet = DB.dbExecuteInsert(query);
             if (resultSet.next()){
-                insertPurchaseOrderItems(purchaseOrder.getItems() ,resultSet.getInt(1));
+                insertandUpdatePurchaseOrderItems(purchaseOrder.getItems() ,resultSet.getInt(1));
                 return resultSet.getInt(1);
             } else {
                 throw new SQLException();
@@ -142,16 +142,23 @@ public class PurchaseOrderDAO {
         }
 
     }
-    public static void insertPurchaseOrderItems(ObservableList<PurchaseOrderItem> items, int documentId){
+    public static void insertandUpdatePurchaseOrderItems(ObservableList<PurchaseOrderItem> items, int documentId){
         try {
 
             for (PurchaseOrderItem item : items){
-                String query = String.format(Locale.US,
+                String insertQuery = String.format(Locale.US,
                         """
                         insert into Purchase_Order_Item (document_id, posnr, quantity, price, vat, material_id)
                                                 values (%d, %d, %.2f, %.2f, %.2f, %d)""",
                         documentId, item.getPosnr(), item.getQuantity(), item.getPrice(), item.getVat(), item.getMaterial().getId());
-                ResultSet resultSet = DB.dbExecuteInsert(query);
+                ResultSet resultSet = DB.dbExecuteInsert(insertQuery);
+                String updateQuery = String.format(Locale.US,
+                        """
+                                update Material
+                                     set qty_available = qty_available + %.2f
+                                     where material_id = %d;""",
+                        item.getQuantity(), item.getMaterial().getId());
+                DB.dbExecuteInsert(updateQuery);
                 if (!resultSet.next()){
                     throw new SQLException();
                 }

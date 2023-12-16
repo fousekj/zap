@@ -55,12 +55,7 @@ public class SalesOrderItem {
 
     @Override
     public String toString() {
-        return "PurchaseOrderItem{" +
-                "posnr=" + posnr +
-                ", material=" + material.getDescription() +
-                ", quantity=" + quantity +
-                ", price=" + price +
-                ", vat=" + vat +
-                '}';
+        return "Položka č. " + getPosnr() + ", materiál " + getMaterial().getDescription() + " v množství " + getQuantity() + " za cenu " + getPrice() + " DPH " + getVat();
+
     }
 }

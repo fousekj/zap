@@ -1,10 +1,13 @@
 package com.example.SalesOrder;
 
+import com.example.FinancialDocument.FinancialDocument;
+import com.example.FinancialDocument.FinancialDocumentController;
 import com.example.PurchaseOrder.PurchaseOrder;
 import com.example.PurchaseOrder.PurchaseOrderDAO;
 import com.example.PurchaseOrder.PurchaseOrderItem;
 import com.example.customer.Customer;
 import com.example.customer.CustomerDAO;
+import com.example.customer.Role;
 import com.example.interfaces.Alertable;
 import com.example.material.Material;
 import com.example.material.MaterialDAO;
@@ -29,7 +32,7 @@ import java.util.ResourceBundle;
 public class SalesOrderController implements Initializable, Alertable {
 
     @FXML
-    private TextField tfQuantity, tfTotalPrice, tfTotalVat, tfIncoterms, tfPaymentTerms;
+    private TextField tfQuantity, tfTotalPrice, tfTotalVat, tfIncoterms, tfPaymentTerms, tfId;
 
     @FXML
     ComboBox<Customer> cbCustomer = new ComboBox<>();
@@ -53,8 +56,12 @@ public class SalesOrderController implements Initializable, Alertable {
         if (saleseOrderList.isEmpty()){
             salesOrderListView.getSelectionModel().select(0);
         }
-        cbCustomer.getItems().addAll(CustomerDAO.getAllCustomers());
-        cbMaterial.setItems(MaterialDAO.getAllMaterials());
+        ObservableList<Customer> customers = CustomerDAO.getAllCustomers();
+        customers.removeIf(c -> c.getRole() != Role.CU);
+        cbCustomer.getItems().addAll(customers);
+        ObservableList<Material> materials = MaterialDAO.getAllMaterials();
+        materials.removeIf(m -> m.getQtyAvailable() == 0);
+        cbMaterial.setItems(materials);
 
     }
 
@@ -69,9 +76,26 @@ public class SalesOrderController implements Initializable, Alertable {
         }
     }
 
+
+
     public void handleAddMaterial(){
 
         Material mat = (Material) cbMaterial.getValue();
+        if (mat == null){
+            showAlert(Alert.AlertType.ERROR, "Musíte vybrat materiál");
+            return;
+        }
+
+        if (tfQuantity.getText().isEmpty()){
+            showAlert(Alert.AlertType.ERROR, "Musíte zadat množství");
+            return;
+        }
+
+        if (Float.parseFloat(tfQuantity.getText()) > mat.getQtyAvailable()){
+            showAlert(Alert.AlertType.ERROR, "Nedostatek zboží na skladě");
+            return;
+        }
+
         SalesOrderItem item = new SalesOrderItem();
         if (lvItems.getItems().isEmpty()){
             item.setPosnr(1);
@@ -88,7 +112,6 @@ public class SalesOrderController implements Initializable, Alertable {
 
         tfTotalPrice.setText(String.format(Locale.US, "%.2f", Float.parseFloat(tfTotalPrice.getText()) + item.getPrice()));
         tfTotalVat.setText(String.format(Locale.US, "%.2f", Float.parseFloat(tfTotalVat.getText()) + item.getVat()));
-
 
     }
 
@@ -109,8 +132,26 @@ public class SalesOrderController implements Initializable, Alertable {
         tfPaymentTerms.setText(c.getPaymentTerm().toString());
     }
 
+    public void handleDisplayDocument() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(SalesOrder.class.getResource("displaySalesOrder.fxml"));
+            AnchorPane newAnchorPane = (AnchorPane) fxmlLoader.load();
+            BorderPane parent = (BorderPane) anchorPane.getParent();
+            parent.setCenter(newAnchorPane);
+        } catch (Exception e) {
+            showAlert(Alert.AlertType.ERROR, "Nepodařilo se zobrazit finanční doklad");
+        }
+    }
 
     public void handleCreateNewSalesOrder(ActionEvent event) {
+        if (cbCustomer.getValue() == null){
+            showAlert(Alert.AlertType.ERROR, "Musíte vybrat obchodního partnera");
+            return;
+        }
+        if (salesOrderItems.isEmpty()){
+            showAlert(Alert.AlertType.ERROR, "Musíte přidat alespoň jeden materiál");
+            return;
+        }
 
         try {
             SalesOrder so = new SalesOrder(tfIncoterms.getText(), PaymentTerm.fromLabel(tfPaymentTerms.getText()), Float.parseFloat(tfTotalPrice.getText()), Float.parseFloat(tfTotalVat.getText()));
@@ -124,6 +165,32 @@ public class SalesOrderController implements Initializable, Alertable {
             parent.setCenter(newAnchorPane);
         } catch (Exception e){
             showAlert(Alert.AlertType.ERROR, "Nepodařilo se vytvořit novou nákupní objednávku");
+        }
+    }
+
+    public void handleDisplayDocumentById() {
+        SalesOrder salesOrder = null;
+        if (tfId.getText().isEmpty()) {
+            showAlert(Alert.AlertType.ERROR, "Musíte zadat číslo finančního dokladu");
+            return;
+        }
+        for (SalesOrder so : this.saleseOrderList) {
+            if (so.getId() == Integer.parseInt(tfId.getText())) {
+                salesOrder = so;
+                break;
+            }
+        }
+
+        if (salesOrder == null) {
+            showAlert(Alert.AlertType.ERROR, "Nepodařilo se nalézt zakázku s tímto číslem");
+        } else {
+            tfId.setText(String.valueOf(salesOrder.getId()));
+            tfTotalPrice.setText(String.valueOf(salesOrder.getPrice()));
+            tfTotalVat.setText(String.valueOf(salesOrder.getVat()));
+            cbCustomer.setValue(salesOrder.getCustomer());
+            tfIncoterms.setText(salesOrder.getIncoterms());
+            tfPaymentTerms.setText(salesOrder.getPaymentTerms().toString());
+            lvItems.setItems(salesOrder.getItems());
         }
     }
 

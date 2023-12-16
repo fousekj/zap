@@ -38,20 +38,21 @@
 
 <AnchorPane fx:id="anchorPane" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.FinancialDocument.FinancialDocumentController">
    <children>
-      <Label layoutX="14.0" layoutY="14.0" text="Vytvoření nového finančního dokladu z nákupní objednávky">
+      <Label layoutX="14.0" layoutY="14.0" text="Zobrazení finančního dokladu">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label contentDisplay="RIGHT" layoutX="22.0" layoutY="69.0" text="Objednávka">
+      <Button layoutX="324.0" layoutY="16.0" mnemonicParsing="false" onAction="#handleDisplayDocumentById" text="Zobrazit" />
+      <Label contentDisplay="RIGHT" layoutX="23.0" layoutY="111.0" text="Předchozí doklad">
          <font>
             <Font size="13.0" />
          </font>
          <graphic>
-            <ComboBox fx:id="cbPurchaseOrder" onAction="#fillFIDataFromPO" prefHeight="25.0" prefWidth="219.0" />
+            <ComboBox fx:id="cbPreviousDocument" prefHeight="25.0" prefWidth="219.0" />
          </graphic>
       </Label>
-      <Label contentDisplay="RIGHT" layoutX="22.0" layoutY="110.0" text="Zákazník">
+      <Label contentDisplay="RIGHT" layoutX="23.0" layoutY="152.0" text="Zákazník">
          <font>
             <Font size="13.0" />
          </font>
@@ -59,13 +60,12 @@
             <TextField fx:id="tfCustomer" editable="false" prefHeight="25.0" prefWidth="273.0" />
          </graphic>
       </Label>
-      <Button layoutX="552.0" layoutY="16.0" mnemonicParsing="false" onAction="#handleCreateNewFIDocFromPurchaseOrder" text="Vytvořit" />
       <Label contentDisplay="RIGHT" layoutX="395.0" layoutY="73.0" text="Měna">
          <font>
             <Font size="13.0" />
          </font>
          <graphic>
-            <TextField fx:id="tfCurrency" />
+            <TextField fx:id="tfCurrency" editable="false" />
          </graphic>
       </Label>
       <Label contentDisplay="RIGHT" layoutX="395.0" layoutY="110.0" text="Celková cena">
@@ -82,6 +82,14 @@
          </font>
          <graphic>
             <TextField fx:id="tfTotalVat" editable="false" text="0.0" />
+         </graphic>
+      </Label>
+      <Label contentDisplay="RIGHT" layoutX="23.0" layoutY="76.0" text="Číslo finančního dokladu">
+         <font>
+            <Font size="13.0" />
+         </font>
+         <graphic>
+            <TextField fx:id="tfId" />
          </graphic>
       </Label>
    </children>

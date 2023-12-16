@@ -146,14 +146,20 @@ public class SalesOrderDAO {
     }
     public static void insertSalesOrderItems(ObservableList<SalesOrderItem> items, int documentId){
         try {
-
             for (SalesOrderItem item : items){
-                String query = String.format(Locale.US,
+                String insertQuery = String.format(Locale.US,
                         """
                         insert into Sales_Order_Item (document_id, posnr, quantity, price, vat, material_id)
                                                 values (%d, %d, %.2f, %.2f, %.2f, %d)""",
                         documentId, item.getPosnr(), item.getQuantity(), item.getPrice(), item.getVat(), item.getMaterial().getId());
-                ResultSet resultSet = DB.dbExecuteInsert(query);
+                ResultSet resultSet = DB.dbExecuteInsert(insertQuery);
+                String updateQuery = String.format(Locale.US,
+                        """
+                                update Material
+                                     set qty_available = qty_available - %.2f
+                                     where material_id = %d;""",
+                        item.getQuantity(), item.getMaterial().getId());
+                DB.dbExecuteInsert(updateQuery);
                 if (!resultSet.next()){
                     throw new SQLException();
                 }

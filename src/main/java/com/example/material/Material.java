@@ -25,16 +25,7 @@ public class Material {
 
     @Override
     public String toString() {
-        return "Material{" +
-                "id=" + id +
-                ", description='" + description + '\'' +
-                ", qtyAvailable=" + qtyAvailable +
-                ", price=" + price +
-                ", baseUOM='" + baseUOM + '\'' +
-                ", vatRate=" + vatRate +
-                ", bruttoWeight=" + bruttoWeight +
-                ", nettoWeight=" + nettoWeight +
-                '}';
+        return "Materiál číslo " + id + " s popisem " + description + " a cenou " + price + " Kč. Momentálně je skladem " + qtyAvailable + " kusů.";
     }
 
     public int getId() {

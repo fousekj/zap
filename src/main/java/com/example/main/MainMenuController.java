@@ -31,8 +31,6 @@ public class MainMenuController implements Initializable, Alertable {
     @FXML
     private BorderPane borderPaneScreen;
 
-    private boolean isUserLoggedOn;
-    private boolean isUserAdmin;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

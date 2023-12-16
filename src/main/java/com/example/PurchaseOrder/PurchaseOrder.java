@@ -59,32 +59,6 @@ public class PurchaseOrder extends DocumentHeader {
     public void setPaymentTerms(PaymentTerm paymentTerms) {
         this.paymentTerms = paymentTerms;
     }
-/*
-    public float getPrice() {
-        return price;
-    }
-
-    public void setPrice(float price) {
-        this.price = price;
-    }
-
-    public float getVat() {
-        return vat;
-    }
-
-    public void setVat(float vat) {
-        this.vat = vat;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
- */
 
     public int getFinancialDocumentId() {
         return financialDocumentId;
@@ -96,11 +70,6 @@ public class PurchaseOrder extends DocumentHeader {
 
     @Override
     public String toString() {
-        return "PurchaseOrder{" +
-                ", id=" + super.getId() +
-                ", incoterms='" + incoterms + '\'' +
-                ", price=" + super.getPrice() +
-                ", vat=" + super.getVat() +
-                '}';
+        return "Nákupní obj. číslo " + getId() + " v hodnotě " + getPrice() + " od zákazníka " + getCustomer().getName();
     }
 }

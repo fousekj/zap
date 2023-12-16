@@ -28,7 +28,7 @@ public class CustomerController implements Initializable, Alertable {
             tfCityShip, tfCountryShip, tfPostCodeShip, tfEmailShip, tfPhoneShip, tfNameInvoic, tfStreetInvoic,
             tfHouseNumInvoic, tfCityInvoic, tfCountryInvoic, tfPostCodeInvoic, tfEmailInvoic, tfPhoneInvoic, tfDiscount;
     @FXML
-    private ListView<Customer> customerListView;
+    private ListView<Customer> customerListView = new ListView<>();
     @FXML
     private ComboBox<PaymentTerm> cbPaymentTerms = new ComboBox<>();
     @FXML
@@ -42,14 +42,13 @@ public class CustomerController implements Initializable, Alertable {
         if (customerList.isEmpty()){
             customerListView.getSelectionModel().select(0);
         }
-        /*
+
         cbPaymentTerms.getItems().addAll(PaymentTerm.values());
-        cbRoles.getItems().addAll(Role.values());*/
+        cbRoles.getItems().addAll(Role.values());
     }
 
     public void handleCreateCustomerAction() {
-        cbPaymentTerms.getItems().addAll(PaymentTerm.values());
-        cbRoles.getItems().addAll(Role.values());
+
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(CustomerController.class.getResource("createCustomer.fxml"));
             AnchorPane newAnchorPane = fxmlLoader.load();
@@ -76,6 +75,17 @@ public class CustomerController implements Initializable, Alertable {
     }
 
     public void handleCreateNewCustomerAction() {
+        if (tfName.getText().isEmpty() || tfIncoterms.getText().isEmpty() || tfStreetShip.getText().isEmpty() ||
+                tfNameShip.getText().isEmpty() || tfHouseNumShip.getText().isEmpty() || tfCityShip.getText().isEmpty() ||
+                tfCountryShip.getText().isEmpty() || tfPostCodeShip.getText().isEmpty() || tfEmailShip.getText().isEmpty() ||
+                tfPhoneShip.getText().isEmpty() || tfNameInvoic.getText().isEmpty() || tfStreetInvoic.getText().isEmpty() ||
+                tfHouseNumInvoic.getText().isEmpty() || tfCityInvoic.getText().isEmpty() || tfCountryInvoic.getText().isEmpty() ||
+                tfPostCodeInvoic.getText().isEmpty() || tfEmailInvoic.getText().isEmpty() || tfPhoneInvoic.getText().isEmpty() ||
+                tfDiscount.getText().isEmpty() || cbPaymentTerms.getValue() == null || cbRoles.getValue() == null) {
+            showAlert(Alert.AlertType.ERROR, "Některé z povinných polí nejsou vyplněny");
+            return;
+        }
+
         try {
             Address delivery_address = new Address(tfNameShip.getText(), tfStreetShip.getText(), tfHouseNumShip.getText(),
                     tfCityShip.getText(), tfCountryShip.getText(), tfPostCodeShip.getText(),

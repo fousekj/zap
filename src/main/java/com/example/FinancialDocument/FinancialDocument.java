@@ -42,11 +42,6 @@ public class FinancialDocument extends DocumentHeader {
 
     @Override
     public String toString() {
-        return "FinancialDocument{" +
-                "document_id='" + super.getId() + '\'' +
-                "currency='" + currency + '\'' +
-                ", paymentStatus=" + paymentStatus +
-                ", previousDocument=" + previousDocument +
-                '}';
+        return "Účetní doklad číslo " + getId() + " s částkou " + getPrice() + " " + getCurrency() + " pro zákazníka " + getCustomer().getName() + " a stavem " + getPaymentStatus().toString() + ". Tento doklad vznikl z " + getPreviousDocument().toString() + ".";
     }
 }
