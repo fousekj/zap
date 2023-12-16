@@ -50,7 +50,7 @@
       </Label>
       <Button fx:id="btnFindCustomer" layoutX="390.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleFindCustomer" text="Hledat zákazníka">
          <graphic>
-            <TextField fx:id="tfSearchTerm" promptText="Hledaný termín" />
+            <TextField fx:id="tfSearch" promptText="Hledaný termín" />
          </graphic>
       </Button>
    </children>

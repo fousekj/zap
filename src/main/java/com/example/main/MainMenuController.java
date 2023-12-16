@@ -1,9 +1,11 @@
 package com.example.main;
 
+import com.example.FinancialDocument.FinancialDocumentController;
+import com.example.SalesOrder.SalesOrderController;
 import com.example.customer.CustomerController;
 import com.example.interfaces.Alertable;
-import com.example.settings.docType.DocTypeController;
-import com.example.settings.salesOrg.SalesOrgController;
+import com.example.material.MaterialController;
+import com.example.PurchaseOrder.PurchaseOrderController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -34,29 +36,7 @@ public class MainMenuController implements Initializable, Alertable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //validace pro zobrazení konfigurace
-    }
 
-    @FXML
-    protected void handleSalesOrgAction(ActionEvent event) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(SalesOrgController.class.getResource("displayAllSalesOrgs.fxml"));
-            AnchorPane anchorPane = (AnchorPane) fxmlLoader.load();
-            borderPaneScreen.setCenter(anchorPane);
-        } catch (Exception e){
-            showAlert(Alert.AlertType.ERROR, "Kritická chyba - nepodařilo se nalézt zdroj zobrazení");
-        }
-
-    }
-
-    public void handleDocTypeAction(ActionEvent actionEvent) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(DocTypeController.class.getResource("displayAllDocTypes.fxml"));
-            AnchorPane anchorPane = (AnchorPane) fxmlLoader.load();
-            borderPaneScreen.setCenter(anchorPane);
-        } catch (Exception e){
-            showAlert(Alert.AlertType.ERROR, "Kritická chyba - nepodařilo se nalézt zdroj zobrazení");
-        }
     }
 
     public void handleCustomerAction(ActionEvent actionEvent) {
@@ -69,6 +49,46 @@ public class MainMenuController implements Initializable, Alertable {
         }
     }
 
-    public void createMaterial(ActionEvent actionEvent) {
+    public void handleMaterialAction(ActionEvent actionEvent) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(MaterialController.class.getResource("displayAllMaterials.fxml"));
+            AnchorPane anchorPane = (AnchorPane) fxmlLoader.load();
+            borderPaneScreen.setCenter(anchorPane);
+        } catch (Exception e){
+            showAlert(Alert.AlertType.ERROR, "Kritická chyba - nepodařilo se nalézt zdroj zobrazení");
+        }
+    }
+
+    public void handlePurchaseOrderListAction(ActionEvent actionEvent) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(PurchaseOrderController.class.getResource("displayAllPurchaseOrders.fxml"));
+            AnchorPane anchorPane = (AnchorPane) fxmlLoader.load();
+            borderPaneScreen.setCenter(anchorPane);
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Kritická chyba - nepodařilo se nalézt zdroj zobrazení");
+        }
+    }
+
+    public void handleFinancialDocumentAction(ActionEvent actionEvent) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(FinancialDocumentController.class.getResource("displayAllFinancialDocuments.fxml"));
+            AnchorPane anchorPane = (AnchorPane) fxmlLoader.load();
+            borderPaneScreen.setCenter(anchorPane);
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Kritická chyba - nepodařilo se nalézt zdroj zobrazení");
+        }
+    }
+
+    public void handleSalesOrderAction(ActionEvent actionEvent) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(SalesOrderController.class.getResource("displayAllSalesOrders.fxml"));
+            AnchorPane anchorPane = (AnchorPane) fxmlLoader.load();
+            borderPaneScreen.setCenter(anchorPane);
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Kritická chyba - nepodařilo se nalézt zdroj zobrazení");
+        }
     }
 }

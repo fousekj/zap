@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class App extends Application {
 
-    private static DB database;
+    //private static DB database;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -22,16 +22,16 @@ public class App extends Application {
         primaryStage.setTitle("ZAP - FOU0027");
         primaryStage.setScene(scene);
         primaryStage.show();
-        setup();
+        //setup();
     }
 
-    private void setup(){
-        database = new DB();
-    }
+    //private void setup(){
+    //    database = new DB();
+    //}
 
-    public static DB getDatabase (){
-        return database;
-    }
+    //public static DB getDatabase (){
+    //    return database;
+    //}
 
     public static void main(String[] args) {
         launch();

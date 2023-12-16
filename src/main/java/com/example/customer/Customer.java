@@ -5,34 +5,26 @@ import com.example.settings.PaymentTerm;
 
 
 public class Customer {
-    private String name, searchTerm, ICO, DIC, incoterms;
-    private int number;
-    private Address address;
+    private String name, incoterms;
+    private int id;
+    private Address deliveryAddress, invoiceAddress;
+    private float discount;
     private PaymentTerm paymentTerm;
-
-    public Customer(int number, String name, String searchTerm, String ICO, String DIC, String incoterms, Address address, PaymentTerm paymentTerm) {
-        this.number = number;
-        this.name = name;
-        this.searchTerm = searchTerm;
-        this.ICO = ICO;
-        this.DIC = DIC;
-        this.incoterms = incoterms;
-        this.address = address;
-        this.paymentTerm = paymentTerm;
-
-    }
+    private Role role;
 
     public Customer (){
-        address = null;
-        paymentTerm = null;
+        deliveryAddress = invoiceAddress = null;
+        paymentTerm = PaymentTerm.NET_7;
     }
 
-    public int getNumber() {
-        return number;
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
+    public Customer(String name, Role role, String incoterms, Address deliveryAddress, Address invoiceAddress, float discount, PaymentTerm paymentTerm) {
+        this.name = name;
+        this.role = role;
+        this.incoterms = incoterms;
+        this.deliveryAddress = deliveryAddress;
+        this.invoiceAddress = invoiceAddress;
+        this.discount = discount;
+        this.paymentTerm = paymentTerm;
     }
 
     public String getName() {
@@ -43,28 +35,12 @@ public class Customer {
         this.name = name;
     }
 
-    public String getSearchTerm() {
-        return searchTerm;
+    public Role getRole() {
+        return role;
     }
 
-    public void setSearchTerm(String searchTerm) {
-        this.searchTerm = searchTerm;
-    }
-
-    public String getICO() {
-        return ICO;
-    }
-
-    public void setICO(String ICO) {
-        this.ICO = ICO;
-    }
-
-    public String getDIC() {
-        return DIC;
-    }
-
-    public void setDIC(String DIC) {
-        this.DIC = DIC;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public String getIncoterms() {
@@ -75,12 +51,20 @@ public class Customer {
         this.incoterms = incoterms;
     }
 
-    public Address getAddress() {
-        return address;
+    public int getId() {
+        return id;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public float getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(float discount) {
+        this.discount = discount;
     }
 
     public PaymentTerm getPaymentTerm() {
@@ -91,16 +75,29 @@ public class Customer {
         this.paymentTerm = paymentTerm;
     }
 
+    public Address getDeliveryAddress() {
+        return deliveryAddress;
+    }
+
+    public void setDeliveryAddress(Address deliveryAddress) {
+        this.deliveryAddress = deliveryAddress;
+    }
+
+    public Address getInvoiceAddress() {
+        return invoiceAddress;
+    }
+
+    public void setInvoiceAddress(Address invoiceAddress) {
+        this.invoiceAddress = invoiceAddress;
+    }
+
     @Override
     public String toString() {
         return "Customer{" +
-                "name='" + name +
-                ", searchTerm='" + searchTerm +
-                ", ICO='" + ICO +
-                ", DIC='" + DIC +
-                ", incoterms='" + incoterms +
-                ", number=" + number +
-                ", address=" + address +
+                "name='" + name + '\'' +
+                ", role='" + role + '\'' +
+                ", incoterms='" + incoterms + '\'' +
+                ", id=" + id +
                 ", paymentTerm=" + paymentTerm +
                 '}';
     }

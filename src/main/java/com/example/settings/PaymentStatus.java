@@ -1,22 +1,20 @@
 package com.example.settings;
 
-public enum PaymentTerm {
-    NET_7 ("Splatnost 7 dní", "Net 7"),
-    NET_15 ("Splatnost 15 dní", "Net 14"),
-    NET_30 ("Splatnost 30 dní", "Net 30"),
-    NET_90 ("Splatnost 90 dní", "Net 90"),
-    CASH ("Platba v hotovosti", "Cash"),
-    CARD ("Platba kartou", "Card");
+public enum PaymentStatus {
+    WAITING_FOR_PAYMENT ("Čeká na platbu", "WAITING_FOR_PAYMENT"),
+    PAID ("Zaplaceno", "PAID"),
+    ACTIVE ("Aktivní", "ACTIVE"),
+    CANCELED ("Zrušeno", "CANCELED");
 
     private final String label, dbRepresentation;
 
-    PaymentTerm(String label, String dbRepresentation) {
+    PaymentStatus(String label, String dbRepresentation) {
         this.label = label;
         this.dbRepresentation = dbRepresentation;
     }
 
-    public static PaymentTerm fromDBString(String text) {
-        for (PaymentTerm p : PaymentTerm.values()) {
+    public static PaymentStatus fromDBString(String text) {
+        for (PaymentStatus p : PaymentStatus.values()) {
             if (p.dbRepresentation.equalsIgnoreCase(text)) {
                 return p;
             }
@@ -24,8 +22,8 @@ public enum PaymentTerm {
         return null;
     }
 
-    public static PaymentTerm fromLabel(String label) {
-        for (PaymentTerm p : PaymentTerm.values()) {
+    public static PaymentStatus fromLabel(String label) {
+        for (PaymentStatus p : PaymentStatus.values()) {
             if (p.label.equalsIgnoreCase(label)) {
                 return p;
             }

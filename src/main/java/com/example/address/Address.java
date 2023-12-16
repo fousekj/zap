@@ -2,20 +2,28 @@ package com.example.address;
 
 public class Address {
 
+    private String name;
     private String street;
     private String houseNum;
     private String city;
     private String country;
+    private String postCode;
     private String email;
     private String phone;
 
-    public Address(String street, String houseNum, String city, String country, String email, String phone) {
+    public Address(String name, String street, String houseNum, String city, String country, String postCode, String email, String phone) {
+        this.name = name;
         this.street = street;
         this.houseNum = houseNum;
         this.city = city;
         this.country = country;
+        this.postCode = postCode;
         this.email = email;
         this.phone = phone;
+    }
+
+    public Address(){
+
     }
 
     public String getStreet() {
@@ -64,6 +72,22 @@ public class Address {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPostCode() {
+        return postCode;
+    }
+
+    public void setPostCode(String postCode) {
+        this.postCode = postCode;
     }
 
     @Override

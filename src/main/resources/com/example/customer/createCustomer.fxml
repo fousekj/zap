@@ -32,11 +32,15 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.customer.CustomerController">
+<AnchorPane fx:id="anchorPane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.customer.CustomerController">
    <children>
       <Button layoutX="398.0" layoutY="16.0" mnemonicParsing="false" onAction="#handleCreateNewCustomerAction" text="Vytvořit" />
       <Label layoutX="14.0" layoutY="14.0" text="Vytvoření nového zákazníka">
@@ -52,20 +56,20 @@
             <TextField fx:id="tfName" alignment="CENTER_RIGHT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="28.0" prefWidth="282.0" />
          </graphic>
       </Label>
-      <Label contentDisplay="RIGHT" layoutX="398.0" layoutY="56.0" text="Zkratka pro vyhledávání">
-         <font>
-            <Font size="15.0" />
-         </font>
-         <graphic>
-            <TextField fx:id="tfSearchTerm" alignment="CENTER_RIGHT" nodeOrientation="RIGHT_TO_LEFT" />
-         </graphic>
-      </Label>
-      <Label contentDisplay="RIGHT" layoutX="14.0" layoutY="90.0" text="Platební podmínka">
+      <Label contentDisplay="RIGHT" layoutX="14.0" layoutY="160.0" text="Platební podmínka">
          <font>
             <Font size="15.0" />
          </font>
          <graphic>
             <ComboBox fx:id="cbPaymentTerms" prefWidth="150.0" />
+         </graphic>
+      </Label>
+      <Label contentDisplay="RIGHT" layoutX="14.0" layoutY="90.0" text="Role zákazníka">
+         <font>
+            <Font size="15.0" />
+         </font>
+         <graphic>
+            <ComboBox fx:id="cbRoles" prefWidth="150.0" />
          </graphic>
       </Label>
       <Label contentDisplay="RIGHT" layoutX="14.0" layoutY="125.0" text="Incoterms">
@@ -76,76 +80,156 @@
             <TextField fx:id="tfIncoterms" alignment="CENTER_RIGHT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="28.0" prefWidth="258.0" />
          </graphic>
       </Label>
-      <Label contentDisplay="RIGHT" layoutX="398.0" layoutY="90.0" text="IČO">
+      <Label contentDisplay="RIGHT" layoutX="398.0" layoutY="56.0" text="Sleva v %">
          <font>
             <Font size="15.0" />
          </font>
          <graphic>
-            <TextField fx:id="tfICO" alignment="CENTER_RIGHT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="28.0" prefWidth="164.0" />
+            <TextField fx:id="tfDiscount" alignment="CENTER_RIGHT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="28.0" prefWidth="95.0" />
          </graphic>
       </Label>
-      <Label contentDisplay="RIGHT" layoutX="398.0" layoutY="125.0" text="DIČ">
-         <font>
-            <Font size="15.0" />
-         </font>
-         <graphic>
-            <TextField fx:id="tfDIC" alignment="CENTER_RIGHT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="28.0" prefWidth="164.0" />
-         </graphic>
-      </Label>
-      <TitledPane fx:id="address" animated="false" layoutY="215.0" prefHeight="207.0" prefWidth="1280.0" text="Adresa">
+      <TitledPane fx:id="address" animated="false" layoutY="215.0" prefHeight="207.0" prefWidth="1280.0" text="Doručovací adresa">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="181.0" prefWidth="500.0">
                <children>
-                  <Label fx:id="street" contentDisplay="RIGHT" layoutX="14.0" layoutY="14.0" text="Ulice">
+                  <Label fx:id="street2" contentDisplay="RIGHT" layoutX="14.0" layoutY="14.0" prefHeight="28.0" prefWidth="289.0" text="Název">
                      <font>
                         <Font size="15.0" />
                      </font>
                      <graphic>
-                        <TextField fx:id="tfStreet" alignment="CENTER_RIGHT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="28.0" prefWidth="254.0" />
+                        <TextField fx:id="tfNameShip" alignment="CENTER_RIGHT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="28.0" prefWidth="234.0" />
                      </graphic>
                   </Label>
-                  <Label fx:id="postalCode" contentDisplay="RIGHT" layoutX="14.0" layoutY="51.0" text="Číslo popisné">
+                  <Label fx:id="street" contentDisplay="RIGHT" layoutX="14.0" layoutY="52.0" text="Ulice">
                      <font>
                         <Font size="15.0" />
                      </font>
                      <graphic>
-                        <TextField fx:id="tfHouseNum" alignment="CENTER_RIGHT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="28.0" prefWidth="198.0" />
+                        <TextField fx:id="tfStreetShip" alignment="CENTER_RIGHT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="28.0" prefWidth="254.0" />
                      </graphic>
                   </Label>
-                  <Label fx:id="city" contentDisplay="RIGHT" layoutX="14.0" layoutY="91.0" text="Město">
+                  <Label fx:id="houseNum" contentDisplay="RIGHT" layoutX="14.0" layoutY="89.0" text="Číslo popisné">
                      <font>
                         <Font size="15.0" />
                      </font>
                      <graphic>
-                        <TextField fx:id="tfCity" alignment="CENTER_RIGHT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="28.0" prefWidth="245.0" />
+                        <TextField fx:id="tfHouseNumShip" alignment="CENTER_RIGHT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="28.0" prefWidth="198.0" />
                      </graphic>
                   </Label>
-                  <Label fx:id="state" contentDisplay="RIGHT" layoutX="394.0" layoutY="14.0" text="Stát">
+                  <Label fx:id="city" contentDisplay="RIGHT" layoutX="14.0" layoutY="129.0" text="Město">
                      <font>
                         <Font size="15.0" />
                      </font>
                      <graphic>
-                        <TextField fx:id="tfCountry" alignment="CENTER_RIGHT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="28.0" prefWidth="245.0" />
+                        <TextField fx:id="tfCityShip" alignment="CENTER_RIGHT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="28.0" prefWidth="245.0" />
                      </graphic>
                   </Label>
-                  <Label fx:id="email" contentDisplay="RIGHT" layoutX="395.0" layoutY="51.0" text="Email">
+                  <Label fx:id="postalCode2" contentDisplay="RIGHT" layoutX="397.0" layoutY="14.0" text="PSČ">
                      <font>
                         <Font size="15.0" />
                      </font>
                      <graphic>
-                        <TextField fx:id="tfEmail" alignment="CENTER_RIGHT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="28.0" prefWidth="234.0" />
+                        <TextField fx:id="tfPostCodeShip" alignment="CENTER_RIGHT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="28.0" prefWidth="198.0" />
                      </graphic>
                   </Label>
-                  <Label fx:id="phone" contentDisplay="RIGHT" layoutX="396.0" layoutY="91.0" text="Telefon">
+                  <Label fx:id="state" contentDisplay="RIGHT" layoutX="397.0" layoutY="51.0" text="Stát">
                      <font>
                         <Font size="15.0" />
                      </font>
                      <graphic>
-                        <TextField fx:id="tfPhone" alignment="CENTER_RIGHT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="28.0" prefWidth="218.0" />
+                        <TextField fx:id="tfCountryShip" alignment="CENTER_RIGHT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="28.0" prefWidth="245.0" />
+                     </graphic>
+                  </Label>
+                  <Label fx:id="email" contentDisplay="RIGHT" layoutX="397.0" layoutY="91.0" text="Email">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <graphic>
+                        <TextField fx:id="tfEmailShip" alignment="CENTER_RIGHT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="28.0" prefWidth="234.0" />
+                     </graphic>
+                  </Label>
+                  <Label fx:id="phone" contentDisplay="RIGHT" layoutX="397.0" layoutY="128.0" text="Telefon">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <graphic>
+                        <TextField fx:id="tfPhoneShip" alignment="CENTER_RIGHT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="28.0" prefWidth="218.0" />
                      </graphic>
                   </Label>
                </children></AnchorPane>
         </content>
+      </TitledPane>
+      <TitledPane fx:id="address1" animated="false" layoutY="422.0" prefHeight="207.0" prefWidth="1280.0" text="Fakturační adresa">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="181.0" prefWidth="500.0">
+               <children>
+                  <Label fx:id="street11" contentDisplay="RIGHT" layoutX="14.0" layoutY="14.0" text="Název">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <graphic>
+                        <TextField fx:id="tfNameInvoic" alignment="CENTER_RIGHT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="28.0" prefWidth="242.0" />
+                     </graphic>
+                  </Label>
+                  <Label fx:id="street1" contentDisplay="RIGHT" layoutX="14.0" layoutY="53.0" text="Ulice">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <graphic>
+                        <TextField fx:id="tfStreetInvoic" alignment="CENTER_RIGHT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="28.0" prefWidth="254.0" />
+                     </graphic>
+                  </Label>
+                  <Label fx:id="postalCode1" contentDisplay="RIGHT" layoutX="14.0" layoutY="90.0" text="Číslo popisné">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <graphic>
+                        <TextField fx:id="tfHouseNumInvoic" alignment="CENTER_RIGHT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="28.0" prefWidth="198.0" />
+                     </graphic>
+                  </Label>
+                  <Label fx:id="city1" contentDisplay="RIGHT" layoutX="14.0" layoutY="130.0" text="Město">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <graphic>
+                        <TextField fx:id="tfCityInvoic" alignment="CENTER_RIGHT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="28.0" prefWidth="245.0" />
+                     </graphic>
+                  </Label>
+                  <Label fx:id="postalCode" contentDisplay="RIGHT" layoutX="396.0" layoutY="14.0" text="PSČ">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <graphic>
+                        <TextField fx:id="tfPostCodeInvoic" alignment="CENTER_RIGHT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="28.0" prefWidth="198.0" />
+                     </graphic>
+                  </Label>
+                  <Label fx:id="state1" contentDisplay="RIGHT" layoutX="396.0" layoutY="51.0" text="Stát">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <graphic>
+                        <TextField fx:id="tfCountryInvoic" alignment="CENTER_RIGHT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="28.0" prefWidth="245.0" />
+                     </graphic>
+                  </Label>
+                  <Label fx:id="email1" contentDisplay="RIGHT" layoutX="396.0" layoutY="91.0" text="Email">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <graphic>
+                        <TextField fx:id="tfEmailInvoic" alignment="CENTER_RIGHT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="28.0" prefWidth="234.0" />
+                     </graphic>
+                  </Label>
+                  <Label fx:id="phone1" contentDisplay="RIGHT" layoutX="396.0" layoutY="132.0" text="Telefon">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <graphic>
+                        <TextField fx:id="tfPhoneInvoic" alignment="CENTER_RIGHT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="28.0" prefWidth="218.0" />
+                     </graphic>
+                  </Label>
+               </children>
+            </AnchorPane>
+         </content>
       </TitledPane>
    </children>
  </AnchorPane>
